@@ -20,21 +20,40 @@ stages:
     - checkout: self
       displayName: 'Checkout Source Code'
 
-    # - task: Docker@1
-    #   inputs:
-    #     containerregistrytype: 'Azure Container Registry'
-    #     addBaseImageData: false
-    #     azureSubscriptionEndpoint: 'SVC-AZ-ARM-250926'
-    #     azureContainerRegistry: 'acrashudevka.azurecr.io'
-    #     command: 'login'
+    - task: Docker@1
+
+      displayName: acr login -{Container Reg. type- ACR , with ARM Service connection}
+      inputs:
+        containerregistrytype: 'Azure Container Registry'
+        addBaseImageData: false
+        azureSubscriptionEndpoint: 'SVC-AZ-ARM-250926'
+        azureContainerRegistry: 'acrashudevka.azurecr.io'
+        command: 'login'
+
+    - task: Docker@1
+
+      displayName: acr login -{with docker registry - Service connection (Type-ACR) }
+      inputs:
+        containerregistrytype: 'Container Registry'
+        addBaseImageData: false
+        dockerRegistryEndpoint: 'acr-svc-msi-1'
+        command: 'login'
+
 
     - task: Docker@2
+
+      displayName: acr login - with docker registry(Type-ACR) Service connection
       inputs:
         containerRegistry: 'acr-svc-msi-1'
         command: 'login'
         addPipelineData: false
         addBaseImageData: false
 
-
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'acr-svc-msi-1'
+        repository: 'acrashudevka'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
 
 
