@@ -83,5 +83,6 @@ stages:
         manifests: |
           manifest/deployment.yml
           manifest/service.yml
+        containers: 'acrashudevka.azurecr.io/axion-telemetry-query-service:$(Build.BuildId)'
 
 
