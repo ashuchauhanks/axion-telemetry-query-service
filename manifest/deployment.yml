@@ -1,12 +1,12 @@
 apiVersion: apps/v1
-kind: deployment
+kind: Deployment
 metadata:
   name: axion-telemetry-query-service
   namespace: axion
   labels:
     app: axion-telemetry-query-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: axion-telemetry-query-service
@@ -17,7 +17,15 @@ spec:
     spec:
       containers:
       - name: axion-telemetry-query-service
-        image:  axion-telemetry-query-service:latest
+        image: acrashudevka.azurecr.io/axion-telemetry-query-service:370
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
+        # env:
+        # - name: DATABASE_URL
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: axion-db-secret
+        #       key: DATABASE_URL
+
+
