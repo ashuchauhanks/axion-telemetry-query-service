@@ -20,13 +20,20 @@ stages:
     - checkout: self
       displayName: 'Checkout Source Code'
 
-    - task: Docker@1
+    # - task: Docker@1
+    #   inputs:
+    #     containerregistrytype: 'Azure Container Registry'
+    #     addBaseImageData: false
+    #     azureSubscriptionEndpoint: 'SVC-AZ-ARM-250926'
+    #     azureContainerRegistry: 'acrashudevka.azurecr.io'
+    #     command: 'login'
+
+    - task: Docker@2
       inputs:
-        containerregistrytype: 'Azure Container Registry'
-        addBaseImageData: false
-        azureSubscriptionEndpoint: 'SVC-AZ-ARM-250926'
-        azureContainerRegistry: 'acrashudevka.azurecr.io'
+        containerRegistry: 'acr-svc-msi-1'
         command: 'login'
+        addPipelineData: false
+        addBaseImageData: false
 
 
 
