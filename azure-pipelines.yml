@@ -1,14 +1,33 @@
+
+
 trigger:
-- main
+  branches:
+    include:
+    - main
 
-pool:
-  vmImage: ubuntu-latest
+pool: selfhost-aks
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- stage: BuildAndPush
+  displayName: 'Build and Push telemtry-query Service'
+  jobs:
+  - job: dockerbuildandPush
+    displayName: 'Build Docker Image and Push to ACR'
+
+    steps:
+
+    - checkout: self
+      displayName: 'Checkout Source Code'
+
+    - task: Docker@1
+      inputs:
+        containerregistrytype: 'Azure Container Registry'
+        addBaseImageData: false
+        azureSubscriptionEndpoint: 'SVC-AZ-ARM-250926'
+        azureContainerRegistry: 'acrashudevka.azurecr.io'
+        command: 'login'
+
+
+
+
