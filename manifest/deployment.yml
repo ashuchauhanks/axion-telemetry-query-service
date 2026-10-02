@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: axion-telemetry-query-service
-        image: acrashudevka.azurecr.io/axion-telemetry-query-service:370
+        image: acrashudevka.azurecr.io/axion-telemetry-query-service:$(Build.BuildId)
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
