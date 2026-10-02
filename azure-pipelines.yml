@@ -52,7 +52,7 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'acr-svc-msi-1'
-        repository: 'acrashudevka'
+        repository: 'axion-telemetry-query-service'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
 
